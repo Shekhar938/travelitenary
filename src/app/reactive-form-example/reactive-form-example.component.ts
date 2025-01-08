@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DarkModeService } from '.././darkmode.service';
 
 interface Itinerary {
   destination: string;
@@ -17,8 +18,9 @@ interface Itinerary {
 })
 export class ReactiveFormExampleComponent implements OnInit {
   travelForm: FormGroup;
+  isDarkMode: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private darkModeService: DarkModeService) {
     this.travelForm = this.fb.group({
       destination: ['', Validators.required],
       startDate: ['', Validators.required],
@@ -29,24 +31,21 @@ export class ReactiveFormExampleComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.darkModeService.darkMode$.subscribe((isDarkMode: boolean) => {
+      this.isDarkMode = isDarkMode;
+    });
+  }
 
   onSubmit(): void {
     if (this.travelForm.valid) {
-      console.log(this.travelForm.value);
+      const itinerary: Itinerary = this.travelForm.value;
+      localStorage.setItem('itinerary', JSON.stringify(itinerary));
+      this.router.navigate(['/itinerary-result']);
     }
-  }
-  toggleDarkMode(): void {
-    document.documentElement.classList.toggle('dark');
-    localStorage.setItem('darkMode', document.documentElement.classList.contains('dark') ? 'enabled' : 'disabled');
   }
 
-  applyDarkMode(): void {
-    const darkMode = localStorage.getItem('darkMode');
-    if (darkMode === 'enabled') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+  toggleDarkMode(): void {
+    this.darkModeService.toggleDarkMode();
   }
 }
