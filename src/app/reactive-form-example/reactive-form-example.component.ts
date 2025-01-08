@@ -7,12 +7,13 @@ interface Itinerary {
   startDate: string;
   endDate: string;
   activities: string;
+  numberOfTravelers: number;
+  budget: number;
 }
 
 @Component({
   selector: 'app-reactive-form-example',
-  templateUrl: './reactive-form-example.component.html',
-  styleUrls: ['./reactive-form-example.component.css']
+  templateUrl: './reactive-form-example.component.html'
 })
 export class ReactiveFormExampleComponent implements OnInit {
   travelForm: FormGroup;
@@ -22,16 +23,30 @@ export class ReactiveFormExampleComponent implements OnInit {
       destination: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      activities: ['', Validators.required]
+      activities: ['', Validators.required],
+      numberOfTravelers: [1, [Validators.required, Validators.min(1)]],
+      budget: [0, [Validators.required, Validators.min(0)]]
     });
   }
 
   ngOnInit(): void {}
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.travelForm.valid) {
-      localStorage.setItem('itinerary', JSON.stringify(this.travelForm.value));
-      this.router.navigate(['/itinerary-result']);
+      console.log(this.travelForm.value);
+    }
+  }
+  toggleDarkMode(): void {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('darkMode', document.documentElement.classList.contains('dark') ? 'enabled' : 'disabled');
+  }
+
+  applyDarkMode(): void {
+    const darkMode = localStorage.getItem('darkMode');
+    if (darkMode === 'enabled') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
     }
   }
 }

@@ -28,4 +28,18 @@ export class TemplateDrivenFormExampleComponent {
       this.router.navigate(['/itinerary-result']);
     }
   }
+
+  toggleDarkMode(): void {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('darkMode', document.documentElement.classList.contains('dark') ? 'enabled' : 'disabled');
+  }
+
+  applyDarkMode(): void {
+    const darkMode = localStorage.getItem('darkMode');
+    if (darkMode === 'enabled') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }
 }
