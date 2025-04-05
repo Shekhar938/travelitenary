@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { OllamaService } from '../ollama.service';
 
 interface Itinerary {
   destination: string;
   startDate: string;
   endDate: string;
   activities: string;
+  numberOfTravelers: number;
+  budget: string;
 }
 
 @Component({
@@ -18,12 +19,14 @@ export class TravelDetailsComponent implements OnInit {
   travelForm: FormGroup;
   response: any;
 
-  constructor(private fb: FormBuilder, private router: Router, private ollama: OllamaService) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.travelForm = this.fb.group({
       destination: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      activities: ['', Validators.required]
+      activities: ['', Validators.required],
+      numberOfTravelers: [1, [Validators.required, Validators.min(1)]],
+      budget: ['', Validators.required]
     });
   }
 

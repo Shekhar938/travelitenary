@@ -1,48 +1,91 @@
-<div class="p-6 max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md">
-  <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Enter Travel Details</h2>
-  <form [formGroup]="travelForm" (ngSubmit)="onSubmit()" novalidate>
-    <div class="mb-4">
-      <label for="destination" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Destination</label>
-      <input type="text" id="destination" formControlName="destination" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-      <div *ngIf="travelForm.get('destination')?.invalid && travelForm.get('destination')?.touched" class="text-red-500 text-sm mt-1">
-        Destination is required.
-      </div>
+    <div class="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-md">
+      <h2 class="text-2xl font-bold mb-4">Travel Details</h2>
+      <form [formGroup]="travelForm" (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+          <label for="destination" class="block text-sm font-medium text-gray-700">Destination</label>
+          <input
+            id="destination"
+            type="text"
+            formControlName="destination"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          />
+          <div *ngIf="travelForm.get('destination')?.invalid && travelForm.get('destination')?.touched" class="text-red-500 text-sm">
+            Destination is required.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
+          <input
+            id="startDate"
+            type="date"
+            formControlName="startDate"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          />
+          <div *ngIf="travelForm.get('startDate')?.invalid && travelForm.get('startDate')?.touched" class="text-red-500 text-sm">
+            Start date is required.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
+          <input
+            id="endDate"
+            type="date"
+            formControlName="endDate"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          />
+          <div *ngIf="travelForm.get('endDate')?.invalid && travelForm.get('endDate')?.touched" class="text-red-500 text-sm">
+            End date is required.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="activities" class="block text-sm font-medium text-gray-700">Activities</label>
+          <textarea
+            id="activities"
+            formControlName="activities"
+            rows="3"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          ></textarea>
+          <div *ngIf="travelForm.get('activities')?.invalid && travelForm.get('activities')?.touched" class="text-red-500 text-sm">
+            Activities are required.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="numberOfTravelers" class="block text-sm font-medium text-gray-700">Number of Travelers</label>
+          <input
+            id="numberOfTravelers"
+            type="number"
+            formControlName="numberOfTravelers"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          />
+          <div *ngIf="travelForm.get('numberOfTravelers')?.invalid && travelForm.get('numberOfTravelers')?.touched" class="text-red-500 text-sm">
+            Number of travelers must be at least 1.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="budget" class="block text-sm font-medium text-gray-700">Budget</label>
+          <input
+            id="budget"
+            type="text"
+            formControlName="budget"
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          />
+          <div *ngIf="travelForm.get('budget')?.invalid && travelForm.get('budget')?.touched" class="text-red-500 text-sm">
+            Budget is required.
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="travelForm.invalid"
+          class="px-4 py-2 bg-blue-500 text-white rounded-md shadow-sm hover:bg-blue-600"
+        >
+          Submit
+        </button>
+      </form>
     </div>
-    <div class="mb-4">
-      <label for="startDate" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Start Date</label>
-      <input type="date" id="startDate" formControlName="startDate" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-      <div *ngIf="travelForm.get('startDate')?.invalid && travelForm.get('startDate')?.touched" class="text-red-500 text-sm mt-1">
-        Start Date is required.
-      </div>
-    </div>
-    <div class="mb-4">
-      <label for="endDate" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">End Date</label>
-      <input type="date" id="endDate" formControlName="endDate" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-      <div *ngIf="travelForm.get('endDate')?.invalid && travelForm.get('endDate')?.touched" class="text-red-500 text-sm mt-1">
-        End Date is required.
-      </div>
-    </div>
-    <div class="mb-4">
-      <label for="activities" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Activities</label>
-      <textarea id="activities" rows="4" formControlName="activities" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
-      <div *ngIf="travelForm.get('activities')?.invalid && travelForm.get('activities')?.touched" class="text-red-500 text-sm mt-1">
-        Activities are required.
-      </div>
-    </div>
-    <div class="mb-4">
-      <label for="numberOfTravelers" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Number of Travelers</label>
-      <input type="number" id="numberOfTravelers" formControlName="numberOfTravelers" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-      <div *ngIf="travelForm.get('numberOfTravelers')?.invalid && travelForm.get('numberOfTravelers')?.touched" class="text-red-500 text-sm mt-1">
-        Number of Travelers is required and must be at least 1.
-      </div>
-    </div>
-    <div class="mb-4">
-      <label for="budget" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Budget</label>
-      <input type="number" id="budget" formControlName="budget" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-      <div *ngIf="travelForm.get('budget')?.invalid && travelForm.get('budget')?.touched" class="text-red-500 text-sm mt-1">
-        Budget is required and must be at least 0.
-      </div>
-    </div>
-    <button type="submit" [disabled]="travelForm.invalid" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Itinerary</button>
-  </form>
-</div>
+  

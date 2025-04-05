@@ -27,6 +27,7 @@ export class ReactiveFormExampleComponent implements OnInit {
       endDate: ['', Validators.required],
       activities: ['', Validators.required],
       numberOfTravelers: [1, [Validators.required, Validators.min(1)]],
+      transport: [''],
       budget: [0, [Validators.required, Validators.min(0)]]
     });
   }
