@@ -6,6 +6,9 @@ interface Itinerary {
   startDate: string;
   endDate: string;
   activities: string;
+  numberOfTravelers: number;
+  budget: number;
+  preferredModeOfTransport: string[]; // Changed to an array
 }
 
 @Component({
@@ -17,7 +20,10 @@ export class TemplateDrivenFormExampleComponent {
     destination: '',
     startDate: '',
     endDate: '',
-    activities: ''
+    activities: '',
+    numberOfTravelers: 1,
+    budget: 0,
+    preferredModeOfTransport: []
   };
 
   constructor(private router: Router) {}

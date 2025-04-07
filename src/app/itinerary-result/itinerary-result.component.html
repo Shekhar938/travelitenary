@@ -1,42 +1,73 @@
-<div class="min-h-screen flex flex-col bg-gradient-to-br from-blue-100 to-blue-300 dark:from-gray-900 dark:to-gray-800">
+<div class="h-screen flex flex-col bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-900">
   <div class="flex-grow flex flex-col items-center justify-start p-8">
-    <div class="w-full max-w-5xl bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg shadow-lg p-8">
+    <div class="w-full max-w-5xl bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-900 text-gray-800 dark:text-gray-200 rounded-lg shadow-lg p-8">
       <h2 class="text-4xl font-extrabold text-blue-700 dark:text-blue-300 mb-6 text-center">Itinerary Request</h2>
 
+      <!-- Placeholder for Generating Itinerary -->
+      <div *ngIf="!itinerary || isLoading" class="text-center text-lg font-semibold text-gray-600 dark:text-gray-300">
+        <i class="fas fa-spinner fa-spin text-blue-600 dark:text-blue-400 mr-2"></i> Generating Itinerary...
+      </div>
+
       <!-- Itinerary Details Section -->
-      <div *ngIf="itinerary" class="space-y-6 bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-md">
+      <div *ngIf="itinerary && !isLoading" class="space-y-6 p-6 rounded-lg">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="flex items-center">
-            <i class="fas fa-map-marker-alt text-blue-600 dark:text-blue-400 w-8 h-8 mr-3"></i>
+          <!-- Destination -->
+          <div class="flex items-center space-x-4">
+            <i class="fas fa-map-marker-alt text-blue-600 dark:text-blue-400"></i>
             <p class="text-lg font-semibold">
               <span class="text-blue-600 dark:text-blue-400">Destination:</span> {{ itinerary.destination }}
             </p>
           </div>
-          <div class="flex items-center">
-            <i class="fas fa-calendar-alt text-blue-600 dark:text-blue-400 w-8 h-8 mr-3"></i>
+          <!-- Start Date -->
+          <div class="flex items-center space-x-4">
+            <i class="fas fa-calendar-alt text-blue-600 dark:text-blue-400"></i>
             <p class="text-lg font-semibold">
               <span class="text-blue-600 dark:text-blue-400">Start Date:</span> {{ itinerary.startDate }}
             </p>
           </div>
-          <div class="flex items-center">
-            <i class="fas fa-calendar-check text-blue-600 dark:text-blue-400 w-8 h-8 mr-3"></i>
+          <!-- End Date -->
+          <div class="flex items-center space-x-4">
+            <i class="fas fa-calendar-check text-blue-600 dark:text-blue-400"></i>
             <p class="text-lg font-semibold">
               <span class="text-blue-600 dark:text-blue-400">End Date:</span> {{ itinerary.endDate }}
             </p>
           </div>
-        </div>
-        <div class="flex items-center">
-          <i class="fas fa-list text-blue-600 dark:text-blue-400 w-8 h-8 mr-3"></i>
-          <p class="text-lg font-semibold">
-            <span class="text-blue-600 dark:text-blue-400">Activities:</span> {{ itinerary.activities }}
-          </p>
+          <!-- Activities -->
+          <div class="flex items-center space-x-4">
+            <i class="fas fa-list text-blue-600 dark:text-blue-400"></i>
+            <p class="text-lg font-semibold">
+              <span class="text-blue-600 dark:text-blue-400">Activities:</span> {{ itinerary.activities }}
+            </p>
+          </div>
+          <!-- Number of Travelers -->
+          <div *ngIf="itinerary.numberOfTravelers > 0" class="flex items-center space-x-4">
+            <i class="fas fa-users text-blue-600 dark:text-blue-400"></i>
+            <p class="text-lg font-semibold">
+              <span class="text-blue-600 dark:text-blue-400">Number of Travelers:</span> {{ itinerary.numberOfTravelers }}
+            </p>
+          </div>
+          <!-- Budget -->
+          <div *ngIf="itinerary.budget > 0" class="flex items-center space-x-4">
+            <i class="fas fa-rupee-sign text-blue-600 dark:text-blue-400"></i>
+            <p class="text-lg font-semibold">
+              <span class="text-blue-600 dark:text-blue-400">Budget:</span> ₹{{ itinerary.budget }}
+            </p>
+          </div>
+          <!-- Preferred Mode of Transport -->
+          <div *ngIf="itinerary.preferredModeOfTransport.length > 0" class="flex items-center space-x-4">
+            <i class="fas fa-car text-blue-600 dark:text-blue-400"></i>
+            <p class="text-lg font-semibold">
+              <span class="text-blue-600 dark:text-blue-400">Preferred Mode of Transport:</span>
+              {{ itinerary.preferredModeOfTransport.join(', ') }}
+            </p>
+          </div>
         </div>
       </div>
 
       <!-- Travel Itinerary Section -->
       <h2 class="text-4xl font-extrabold text-blue-700 dark:text-blue-300 mt-8 mb-6 text-center">Your Travel Itinerary</h2>
-      <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-md">
-        <p class="text-lg text-gray-700 dark:text-gray-300 whitespace-pre-line">{{ result }}</p>
+      <div [innerHTML]="result" 
+           class="bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-200 rounded-lg shadow-lg p-6 border border-gray-300 dark:border-gray-600">
       </div>
     </div>
   </div>
