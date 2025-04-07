@@ -1,37 +1,72 @@
-<div class="p-6 max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md">
-  <button (click)="toggleDarkMode()" class="mb-4 bg-gray-700 text-white py-2 px-4 rounded">Toggle Dark Mode</button>
-  <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Enter Travel Details (Template-Driven Form)</h2>
-  <form #travelForm="ngForm" (ngSubmit)="onSubmit(travelForm)" novalidate>
-    <div class="mb-4">
-      <label for="destination" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Destination</label>
-      <input type="text" id="destination" required [(ngModel)]="itinerary.destination" name="destination" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-      <div *ngIf="travelForm.controls['destination']?.invalid && travelForm.controls['destination']?.touched" class="text-red-500 text-sm mt-1">
+<div class="p-8 max-w-4xl mx-auto bg-gradient-to-r from-blue-50 to-blue-100 dark:from-gray-800 dark:to-gray-900 rounded-lg shadow-lg">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-3xl font-extrabold text-blue-700 dark:text-blue-300 flex items-center">
+      <i class="fas fa-plane-departure text-blue-500 dark:text-blue-300 mr-3"></i> Travel Itinerary Form
+    </h2>
+    <button (click)="toggleDarkMode()" class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded shadow-md flex items-center">
+      <i class="fas fa-moon mr-2"></i> Toggle Dark Mode
+    </button>
+  </div>
+
+  <form #travelForm="ngForm" (ngSubmit)="onSubmit(travelForm)" novalidate class="space-y-6">
+    <!-- Destination Field -->
+    <div>
+      <label for="destination" class="block text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+        <i class="fas fa-map-marker-alt text-blue-500 dark:text-blue-300 mr-2"></i> Destination
+      </label>
+      <input type="text" id="destination" required [(ngModel)]="itinerary.destination" name="destination"
+        class="w-full p-3 border rounded-lg shadow-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <div *ngIf="travelForm.controls['destination']?.invalid && travelForm.controls['destination']?.touched"
+        class="text-red-500 text-sm mt-1">
         Destination is required.
       </div>
     </div>
-    <div class="mb-4 flex flex-col md:flex-row md:space-x-4">
-      <div class="w-full mb-4 md:mb-0">
-        <label for="startDate" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Start Date</label>
-        <input type="date" id="startDate" required [(ngModel)]="itinerary.startDate" name="startDate" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-        <div *ngIf="travelForm.controls['startDate']?.invalid && travelForm.controls['startDate']?.touched" class="text-red-500 text-sm mt-1">
+
+    <!-- Date Fields -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="startDate" class="block text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+          <i class="fas fa-calendar-alt text-blue-500 dark:text-blue-300 mr-2"></i> Start Date
+        </label>
+        <input type="date" id="startDate" required [(ngModel)]="itinerary.startDate" name="startDate"
+          class="w-full p-3 border rounded-lg shadow-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <div *ngIf="travelForm.controls['startDate']?.invalid && travelForm.controls['startDate']?.touched"
+          class="text-red-500 text-sm mt-1">
           Start Date is required.
         </div>
       </div>
-      <div class="w-full">
-        <label for="endDate" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">End Date</label>
-        <input type="date" id="endDate" required [(ngModel)]="itinerary.endDate" name="endDate" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-        <div *ngIf="travelForm.controls['endDate']?.invalid && travelForm.controls['endDate']?.touched" class="text-red-500 text-sm mt-1">
+      <div>
+        <label for="endDate" class="block text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+          <i class="fas fa-calendar-check text-blue-500 dark:text-blue-300 mr-2"></i> End Date
+        </label>
+        <input type="date" id="endDate" required [(ngModel)]="itinerary.endDate" name="endDate"
+          class="w-full p-3 border rounded-lg shadow-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <div *ngIf="travelForm.controls['endDate']?.invalid && travelForm.controls['endDate']?.touched"
+          class="text-red-500 text-sm mt-1">
           End Date is required.
         </div>
       </div>
     </div>
-    <div class="mb-4">
-      <label for="activities" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Activities</label>
-      <textarea id="activities" rows="4" required [(ngModel)]="itinerary.activities" name="activities" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
-      <div *ngIf="travelForm.controls['activities']?.invalid && travelForm.controls['activities']?.touched" class="text-red-500 text-sm mt-1">
+
+    <!-- Activities Field -->
+    <div>
+      <label for="activities" class="block text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2 flex items-center">
+        <i class="fas fa-list text-blue-500 dark:text-blue-300 mr-2"></i> Activities
+      </label>
+      <textarea id="activities" rows="4" required [(ngModel)]="itinerary.activities" name="activities"
+        class="w-full p-3 border rounded-lg shadow-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      <div *ngIf="travelForm.controls['activities']?.invalid && travelForm.controls['activities']?.touched"
+        class="text-red-500 text-sm mt-1">
         Activities are required.
       </div>
     </div>
-    <button type="submit" [disabled]="travelForm.invalid" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create Itinerary</button>
+
+    <!-- Submit Button -->
+    <div class="flex justify-end">
+      <button type="submit" [disabled]="travelForm.invalid"
+        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-50 flex items-center">
+        <i class="fas fa-check-circle mr-2"></i> Create Itinerary
+      </button>
+    </div>
   </form>
 </div>
