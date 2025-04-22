@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 interface Itinerary {
   destination: string;
@@ -13,7 +14,9 @@ interface Itinerary {
 
 @Component({
   selector: 'app-travel-details',
-  templateUrl: './travel-details.component.html'
+  templateUrl: './travel-details.component.html',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule]
 })
 export class TravelDetailsComponent implements OnInit {
   travelForm: FormGroup;

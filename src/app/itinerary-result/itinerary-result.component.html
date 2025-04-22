@@ -1,10 +1,17 @@
 <div class="h-screen flex flex-col bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-900">
   <div class="flex-grow flex flex-col items-center justify-start p-8">
     <div class="w-full max-w-5xl bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200 dark:from-gray-800 dark:via-gray-700 dark:to-gray-900 text-gray-800 dark:text-gray-200 rounded-lg shadow-lg p-8">
-      <h2 class="text-4xl font-extrabold text-blue-700 dark:text-blue-300 mb-6 text-center">Itinerary Request</h2>
+      <h2 class="text-4xl font-extrabold text-blue-700 dark:text-blue-300 mb-6 text-center">Itinerary Request</h2>      <!-- Error State -->
+      <div *ngIf="errorMessage" class="text-center space-y-4">
+        <p class="text-red-500 dark:text-red-400 text-lg font-semibold">{{ errorMessage }}</p>
+        <button (click)="returnToForm()" 
+                class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md flex items-center mx-auto">
+          <i class="fas fa-arrow-left mr-2"></i> Return to Form
+        </button>
+      </div>
 
-      <!-- Placeholder for Generating Itinerary -->
-      <div *ngIf="!itinerary || isLoading" class="text-center text-lg font-semibold text-gray-600 dark:text-gray-300">
+      <!-- Loading State -->
+      <div *ngIf="!itinerary && !errorMessage || isLoading" class="text-center text-lg font-semibold text-gray-600 dark:text-gray-300">
         <i class="fas fa-spinner fa-spin text-blue-600 dark:text-blue-400 mr-2"></i> Generating Itinerary...
       </div>
 
@@ -64,9 +71,8 @@
         </div>
       </div>
 
-      <!-- Travel Itinerary Section -->
-      <h2 class="text-4xl font-extrabold text-blue-700 dark:text-blue-300 mt-8 mb-6 text-center">Your Travel Itinerary</h2>
-      <div [innerHTML]="result" 
+      <!-- Travel Itinerary Section -->      <h2 class="text-4xl font-extrabold text-blue-700 dark:text-blue-300 mt-8 mb-6 text-center">Your Travel Itinerary</h2>
+      <div [innerHTML]="safeResult" 
            class="bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-200 rounded-lg shadow-lg p-6 border border-gray-300 dark:border-gray-600">
       </div>
     </div>

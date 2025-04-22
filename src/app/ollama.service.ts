@@ -83,4 +83,31 @@ export class OllamaService {
       throw error;
     }
   }
+
+  private anthropicApiUrl = 'https://api.anthropic.com/v1/complete';
+  private anthropicApiKey = 'add your api key here';
+
+  async callAnthropicApi(prompt: string, model: string = 'claude-v1'): Promise<any> {
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-api-key': this.anthropicApiKey,
+    };
+    const body = {
+      prompt: prompt,
+      model: model,
+      max_tokens_to_sample: 300,
+      stop_sequences: ['\n\nHuman:'],
+    };
+
+    try {
+      const response = await lastValueFrom(
+        this.http.post<any>(this.anthropicApiUrl, body, { headers })
+      );
+      console.log('Received response from Anthropics API:', response);
+      return response;
+    } catch (error) {
+      console.error('Error calling Anthropics API:', error);
+      throw error;
+    }
+  }
 }

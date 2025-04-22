@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { DarkModeService } from '.././darkmode.service';
 
 interface Itinerary {
@@ -14,9 +15,11 @@ interface Itinerary {
 
 @Component({
   selector: 'app-reactive-form-example',
-  templateUrl: './reactive-form-example.component.html'
+  templateUrl: './reactive-form-example.component.html',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule]
 })
-export class ReactiveFormExampleComponent implements OnInit {
+export class ReactiveFormExampleComponent {
   travelForm: FormGroup;
   isDarkMode: boolean = false;
 

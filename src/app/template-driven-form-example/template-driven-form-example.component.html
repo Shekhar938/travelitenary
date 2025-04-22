@@ -40,11 +40,11 @@
           <i class="fas fa-calendar-check text-blue-500 dark:text-blue-300 mr-2"></i> End Date
         </label>
         <input type="date" id="endDate" required [(ngModel)]="itinerary.endDate" name="endDate"
-          class="w-full p-3 border rounded-lg shadow-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <div *ngIf="travelForm.controls['endDate']?.invalid && travelForm.controls['endDate']?.touched"
-          class="text-red-500 text-sm mt-1">
-          End Date is required.
-        </div>
+          class="w-full p-3 border rounded-lg shadow-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">          <div *ngIf="travelForm.controls['endDate']?.invalid && travelForm.controls['endDate']?.touched"
+            class="text-red-500 text-sm mt-1">
+            <span *ngIf="travelForm.controls['endDate']?.errors?.['required']">End Date is required.</span>
+            <span *ngIf="travelForm.controls['endDate']?.errors?.['invalidDateRange']">End date must be after start date.</span>
+          </div>
       </div>
     </div>
 
@@ -94,8 +94,7 @@
       </label>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         <!-- Flight -->
-        <label class="cursor-pointer">
-          <input type="checkbox" [(ngModel)]="itinerary.preferredModeOfTransport" name="preferredModeOfTransport" [value]="'Flight'"
+        <label class="cursor-pointer">          <input type="checkbox" [checked]="isTransportModeSelected('Flight')" (change)="toggleTransportMode('Flight')"
             class="hidden peer">
           <div
             class="flex items-center justify-center w-full p-3 border rounded-lg shadow-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 peer-checked:bg-blue-500 peer-checked:text-white">
@@ -104,8 +103,7 @@
         </label>
 
         <!-- Train -->
-        <label class="cursor-pointer">
-          <input type="checkbox" [(ngModel)]="itinerary.preferredModeOfTransport" name="preferredModeOfTransport" [value]="'Train'"
+        <label class="cursor-pointer">          <input type="checkbox" [checked]="isTransportModeSelected('Train')" (change)="toggleTransportMode('Train')"
             class="hidden peer">
           <div
             class="flex items-center justify-center w-full p-3 border rounded-lg shadow-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 peer-checked:bg-blue-500 peer-checked:text-white">
@@ -114,8 +112,7 @@
         </label>
 
         <!-- Bus -->
-        <label class="cursor-pointer">
-          <input type="checkbox" [(ngModel)]="itinerary.preferredModeOfTransport" name="preferredModeOfTransport" [value]="'Bus'"
+        <label class="cursor-pointer">          <input type="checkbox" [checked]="isTransportModeSelected('Bus')" (change)="toggleTransportMode('Bus')"
             class="hidden peer">
           <div
             class="flex items-center justify-center w-full p-3 border rounded-lg shadow-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 peer-checked:bg-blue-500 peer-checked:text-white">
@@ -124,8 +121,7 @@
         </label>
 
         <!-- Private Car -->
-        <label class="cursor-pointer">
-          <input type="checkbox" [(ngModel)]="itinerary.preferredModeOfTransport" name="preferredModeOfTransport" [value]="'Private Car'"
+        <label class="cursor-pointer">          <input type="checkbox" [checked]="isTransportModeSelected('Private Car')" (change)="toggleTransportMode('Private Car')"
             class="hidden peer">
           <div
             class="flex items-center justify-center w-full p-3 border rounded-lg shadow-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 peer-checked:bg-blue-500 peer-checked:text-white">
@@ -134,18 +130,16 @@
         </label>
 
         <!-- Public Transport -->
-        <label class="cursor-pointer">
-          <input type="checkbox" [(ngModel)]="itinerary.preferredModeOfTransport" name="preferredModeOfTransport" [value]="'Public Transport'"
+        <label class="cursor-pointer">          <input type="checkbox" [checked]="isTransportModeSelected('Public Transport')" (change)="toggleTransportMode('Public Transport')"
             class="hidden peer">
           <div
             class="flex items-center justify-center w-full p-3 border rounded-lg shadow-sm text-gray-700 dark:text-gray-300 dark:bg-gray-700 peer-checked:bg-blue-500 peer-checked:text-white">
             <i class="fas fa-subway text-lg mr-2"></i> Public Transport
           </div>
         </label>
-      </div>
-      <div *ngIf="travelForm.controls['preferredModeOfTransport']?.invalid && travelForm.controls['preferredModeOfTransport']?.touched"
+      </div>      <div *ngIf="(!validateTransportModes() || travelForm.controls['preferredModeOfTransport']?.invalid) && travelForm.controls['preferredModeOfTransport']?.touched"
         class="text-red-500 text-sm mt-1">
-        Please select at least one mode of transport.
+        You must select at least one mode of transport for your journey.
       </div>
     </div>
 
